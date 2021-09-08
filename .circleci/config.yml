@@ -198,14 +198,16 @@ jobs:
           name: Download Codecov Uploader
           command: |
             mkdir -p tmp/
+            cd ./tmp
             curl https://keybase.io/codecovsecurity/pgp_keys.asc | gpg --no-default-keyring --keyring trustedkeys.gpg --import # One-time step
-            curl -s https://uploader.codecov.io/latest/linux/codecov > ./tmp/codecov
-            curl -s https://uploader.codecov.io/latest/linux/codecov.SHA256SUM > ./tmp/codecov.SHA256SUM
-            curl -s https://uploader.codecov.io/latest/linux/codecov.SHA256SUM.sig > ./tmp/codecov.SHA256SUM.sig
-            gpgv ./tmp/codecov.SHA256SUM.sig ./tmp/codecov.SHA256SUM
-            shasum -a 256 -c ./tmp/codecov.SHA256SUM
+            curl -0s https://uploader.codecov.io/latest/linux/codecov
+            curl -0s https://uploader.codecov.io/latest/linux/codecov.SHA256SUM
+            curl -0s https://uploader.codecov.io/latest/linux/codecov.SHA256SUM.sig
+            gpgv codecov.SHA256SUM.sig codecov.SHA256SUM
+            shasum -a 256 -c codecov.SHA256SUM
 
-            chmod +x ./tmp/codecov
+            chmod +x ./codecov
+            cd ..
       - persist_to_workspace:
           root: tmp
           paths:
