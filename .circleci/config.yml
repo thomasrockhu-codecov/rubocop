@@ -198,15 +198,14 @@ jobs:
           name: Download Codecov Uploader
           command: |
             mkdir -p tmp/
-            cd tmp/
             curl https://keybase.io/codecovsecurity/pgp_keys.asc | gpg --no-default-keyring --keyring trustedkeys.gpg --import # One-time step
-            curl -Os https://uploader.codecov.io/latest/linux/codecov
-            curl -Os https://uploader.codecov.io/latest/linux/codecov.SHA256SUM
-            curl -Os https://uploader.codecov.io/latest/linux/codecov.SHA256SUM.sig
-            gpgv codecov.SHA256SUM.sig codecov.SHA256SUM
-            shasum -a 256 -c codecov.SHA256SUM
+            curl -s https://uploader.codecov.io/latest/linux/codecov > ./tmp/codecov
+            curl -s https://uploader.codecov.io/latest/linux/codecov.SHA256SUM > ./tmp/codecov.SHA256SUM
+            curl -s https://uploader.codecov.io/latest/linux/codecov.SHA256SUM.sig > ./tmp/codecov.SHA256SUM.sig
+            gpgv ./tmp/codecov.SHA256SUM.sig ./tmp/codecov.SHA256SUM
+            shasum -a 256 -c ./tmp/codecov.SHA256SUM
 
-            chmod +x ./codecov
+            chmod +x ./tmp/codecov
       - persist_to_workspace:
           root: tmp
           paths:
@@ -250,33 +249,33 @@ workflows:
       - ruby-2.5-spec:
           requires:
             - cc-setup
-      - ruby-2.5-ascii_spec
-      - ruby-2.5-rubocop
+      #- ruby-2.5-ascii_spec
+      #- ruby-2.5-rubocop
       - ruby-2.6-spec:
           requires:
             - cc-setup
-      - ruby-2.6-ascii_spec
-      - ruby-2.6-rubocop
+      #- ruby-2.6-ascii_spec
+      #- ruby-2.6-rubocop
       - ruby-2.7-spec:
           requires:
             - cc-setup
-      - ruby-2.7-ascii_spec
-      - ruby-2.7-rubocop
+      #- ruby-2.7-ascii_spec
+      #- ruby-2.7-rubocop
       - ruby-3.0-spec:
           requires:
             - cc-setup
-      - ruby-3.0-ascii_spec
-      - ruby-3.0-rubocop
+      #- ruby-3.0-ascii_spec
+      #- ruby-3.0-rubocop
       - ruby-head-spec:
           requires:
             - cc-setup
-      - ruby-head-ascii_spec
-      - ruby-head-rubocop
+      #- ruby-head-ascii_spec
+      #- ruby-head-rubocop
       - jruby-9.2-spec:
           requires:
             - cc-setup
-      - jruby-9.2-ascii_spec
-      - jruby-9.2-rubocop
+      #- jruby-9.2-ascii_spec
+      #- jruby-9.2-rubocop
 
       - cc-upload-coverage:
           requires:
