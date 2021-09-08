@@ -203,10 +203,14 @@ jobs:
             curl -0s https://uploader.codecov.io/latest/linux/codecov
             curl -0s https://uploader.codecov.io/latest/linux/codecov.SHA256SUM
             curl -0s https://uploader.codecov.io/latest/linux/codecov.SHA256SUM.sig
+            ls -al
             gpgv codecov.SHA256SUM.sig codecov.SHA256SUM
+            echo 'gpgv'
             shasum -a 256 -c codecov.SHA256SUM
+            echo 'shasum'
 
             chmod +x ./codecov
+            echo 'chmod'
             cd ..
       - persist_to_workspace:
           root: tmp
