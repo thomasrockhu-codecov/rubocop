@@ -23,11 +23,11 @@ spec_steps: &spec_steps
       command: |
         ./tmp/cc-test-reporter before-build
         COVERAGE=true bundle exec rake spec
-        ./tmp/cc-test-reporter format-coverage --output tmp/codeclimate.$CIRCLE_JOB.json
+        ./tmp/cc-test-reporter format-coverage --output tmp/codecov.$CIRCLE_JOB.json
   - persist_to_workspace:
       root: tmp
       paths:
-        - codeclimate.*.json
+        - codecov.*.json
 
 ascii_spec_steps: &ascii_spec_steps
   - checkout
@@ -187,7 +187,7 @@ jobs:
     steps:
       *rubocop_steps
 
-  # Job for downloading the Code Climate test reporter
+  # Job for downloading the Codecov uploader
   cc-setup:
     docker:
       - image: circleci/ruby
@@ -195,17 +195,23 @@ jobs:
       <<: *common_env
     steps:
       - run:
-          name: Download Code Climate test-reporter
+          name: Download Codecov Uploader
           command: |
             mkdir -p tmp/
-            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/cc-test-reporter
-            chmod +x ./tmp/cc-test-reporter
+            curl https://keybase.io/codecovsecurity/pgp_keys.asc | gpg --no-default-keyring --keyring trustedkeys.gpg --import # One-time step
+            curl -Os https://uploader.codecov.io/latest/linux/codecov
+            curl -Os https://uploader.codecov.io/latest/linux/codecov.SHA256SUM
+            curl -Os https://uploader.codecov.io/latest/linux/codecov.SHA256SUM.sig
+            gpgv codecov.SHA256SUM.sig codecov.SHA256SUM
+            shasum -a 256 -c codecov.SHA256SUM
+
+            chmod +x ./tmp/codecov
       - persist_to_workspace:
           root: tmp
           paths:
             - cc-test-reporter
 
-  # Job for merging code coverage results and sending them to Code Climate
+  # Job for sending coverage reports to Codecov
   cc-upload-coverage:
     docker:
       - image: circleci/ruby
@@ -217,10 +223,9 @@ jobs:
       - attach_workspace:
           at: ~/project/tmp
       - run:
-          name: Upload coverage results to Code Climate
+          name: Upload coverage results to Codecov
           command: |
-            ./tmp/cc-test-reporter sum-coverage tmp/codeclimate.*.json --parts 5 --output tmp/codeclimate.total.json
-            ./tmp/cc-test-reporter upload-coverage --input tmp/codeclimate.total.json
+            ./tmp/codecov
 
   # Miscellaneous tasks
   documentation-checks:
