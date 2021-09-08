@@ -197,9 +197,10 @@ jobs:
       - run:
           name: Download Codecov Uploader
           command: |
+            curl https://keybase.io/codecovsecurity/pgp_keys.asc | gpg -v --import # One-time step
+
             mkdir -p tmp/
             cd ./tmp
-            curl https://keybase.io/codecovsecurity/pgp_keys.asc | gpg -v --import # One-time step
             curl -0s https://uploader.codecov.io/latest/linux/codecov
             curl -0s https://uploader.codecov.io/latest/linux/codecov.SHA256SUM
             curl -0s https://uploader.codecov.io/latest/linux/codecov.SHA256SUM.sig
