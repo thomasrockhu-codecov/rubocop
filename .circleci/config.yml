@@ -141,21 +141,21 @@ jobs:
   # ruby-head (nightly snapshot build)
   ruby-head-spec:
     docker:
-      - image: rubocophq/cimg-ruby-snapshot:latest
+      - image: rubocophq/circleci-ruby-snapshot:latest
     environment:
       <<: *common_env
     steps:
       *spec_steps
   ruby-head-ascii_spec:
     docker:
-      - image: rubocophq/cimg-ruby-snapshot:latest
+      - image: rubocophq/circleci-ruby-snapshot:latest
     environment:
       <<: *common_env
     steps:
       *ascii_spec_steps
   ruby-head-rubocop:
     docker:
-      - image: rubocophq/cimg-ruby-snapshot:latest
+      - image: rubocophq/circleci-ruby-snapshot:latest
     environment:
       <<: *common_env
     steps:
@@ -204,9 +204,12 @@ jobs:
             echo 'made dir'
             cd tmp
             echo 'cd'
-            curl -0s https://uploader.codecov.io/latest/linux/codecov
-            curl -0s https://uploader.codecov.io/latest/linux/codecov.SHA256SUM
-            curl -0s https://uploader.codecov.io/latest/linux/codecov.SHA256SUM.sig
+            curl -0 https://uploader.codecov.io/latest/linux/codecov
+            echo 'codecov'
+            curl -0 https://uploader.codecov.io/latest/linux/codecov.SHA256SUM
+            echo 'codecov.SHA256SUM'
+            curl -0 https://uploader.codecov.io/latest/linux/codecov.SHA256SUM.sig
+            echo 'codecov.SHA256SUM.sig'
             ls -al
             gpgv codecov.SHA256SUM.sig codecov.SHA256SUM
             echo 'gpgv'
