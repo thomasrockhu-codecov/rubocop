@@ -204,11 +204,11 @@ jobs:
             echo 'made dir'
             cd tmp
             echo 'cd'
-            curl -0 https://uploader.codecov.io/latest/linux/codecov
+            curl -s https://uploader.codecov.io/latest/linux/codecov > codecov
             echo 'codecov'
-            curl -0 https://uploader.codecov.io/latest/linux/codecov.SHA256SUM
+            curl -s https://uploader.codecov.io/latest/linux/codecov.SHA256SUM > codecov.SHA256SUM
             echo 'codecov.SHA256SUM'
-            curl -0 https://uploader.codecov.io/latest/linux/codecov.SHA256SUM.sig
+            curl -s https://uploader.codecov.io/latest/linux/codecov.SHA256SUM.sig > codecov.SHA256SUM.sig
             echo 'codecov.SHA256SUM.sig'
             ls -al
             gpgv codecov.SHA256SUM.sig codecov.SHA256SUM
@@ -262,33 +262,33 @@ workflows:
       - ruby-2.5-spec:
           requires:
             - cc-setup
-      - ruby-2.5-ascii_spec
-      - ruby-2.5-rubocop
+      #- ruby-2.5-ascii_spec
+      #- ruby-2.5-rubocop
       - ruby-2.6-spec:
           requires:
             - cc-setup
-      - ruby-2.6-ascii_spec
-      - ruby-2.6-rubocop
+      #- ruby-2.6-ascii_spec
+      #- ruby-2.6-rubocop
       - ruby-2.7-spec:
           requires:
             - cc-setup
-      - ruby-2.7-ascii_spec
-      - ruby-2.7-rubocop
+      #- ruby-2.7-ascii_spec
+      #- ruby-2.7-rubocop
       - ruby-3.0-spec:
           requires:
             - cc-setup
-      - ruby-3.0-ascii_spec
-      - ruby-3.0-rubocop
+      #- ruby-3.0-ascii_spec
+      #- ruby-3.0-rubocop
       - ruby-head-spec:
           requires:
             - cc-setup
-      - ruby-head-ascii_spec
-      - ruby-head-rubocop
+      #- ruby-head-ascii_spec
+      #- ruby-head-rubocop
       - jruby-9.2-spec:
           requires:
             - cc-setup
-      - jruby-9.2-ascii_spec
-      - jruby-9.2-rubocop
+      #- jruby-9.2-ascii_spec
+      #- jruby-9.2-rubocop
 
       - cc-upload-coverage:
           requires:
