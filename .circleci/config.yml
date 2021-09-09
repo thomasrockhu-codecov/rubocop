@@ -49,21 +49,21 @@ jobs:
   # Ruby 2.5
   ruby-2.5-spec:
     docker:
-      - image: circleci/ruby:2.5
+      - image: cimg/ruby:2.5
     environment:
       <<: *common_env
     steps:
       *spec_steps
   ruby-2.5-ascii_spec:
     docker:
-      - image: circleci/ruby:2.5
+      - image: cimg/ruby:2.5
     environment:
       <<: *common_env
     steps:
       *ascii_spec_steps
   ruby-2.5-rubocop:
     docker:
-      - image: circleci/ruby:2.5
+      - image: cimg/ruby:2.5
     environment:
       <<: *common_env
     steps:
@@ -72,21 +72,21 @@ jobs:
   # Ruby 2.6
   ruby-2.6-spec:
     docker:
-      - image: circleci/ruby:2.6
+      - image: cimg/ruby:2.6
     environment:
       <<: *common_env
     steps:
       *spec_steps
   ruby-2.6-ascii_spec:
     docker:
-      - image: circleci/ruby:2.6
+      - image: cimg/ruby:2.6
     environment:
       <<: *common_env
     steps:
       *ascii_spec_steps
   ruby-2.6-rubocop:
     docker:
-      - image: circleci/ruby:2.6
+      - image: cimg/ruby:2.6
     environment:
       <<: *common_env
     steps:
@@ -95,21 +95,21 @@ jobs:
   # Ruby 2.7
   ruby-2.7-spec:
     docker:
-      - image: circleci/ruby:2.7
+      - image: cimg/ruby:2.7
     environment:
       <<: *common_env
     steps:
       *spec_steps
   ruby-2.7-ascii_spec:
     docker:
-      - image: circleci/ruby:2.7
+      - image: cimg/ruby:2.7
     environment:
       <<: *common_env
     steps:
       *ascii_spec_steps
   ruby-2.7-rubocop:
     docker:
-      - image: circleci/ruby:2.7
+      - image: cimg/ruby:2.7
     environment:
       <<: *common_env
     steps:
@@ -118,21 +118,21 @@ jobs:
   # Ruby 3.0
   ruby-3.0-spec:
     docker:
-      - image: circleci/ruby:3.0
+      - image: cimg/ruby:3.0
     environment:
       <<: *common_env
     steps:
       *spec_steps
   ruby-3.0-ascii_spec:
     docker:
-      - image: circleci/ruby:3.0
+      - image: cimg/ruby:3.0
     environment:
       <<: *common_env
     steps:
       *ascii_spec_steps
   ruby-3.0-rubocop:
     docker:
-      - image: circleci/ruby:3.0
+      - image: cimg/ruby:3.0
     environment:
       <<: *common_env
     steps:
@@ -141,21 +141,21 @@ jobs:
   # ruby-head (nightly snapshot build)
   ruby-head-spec:
     docker:
-      - image: rubocophq/circleci-ruby-snapshot:latest
+      - image: rubocophq/cimg-ruby-snapshot:latest
     environment:
       <<: *common_env
     steps:
       *spec_steps
   ruby-head-ascii_spec:
     docker:
-      - image: rubocophq/circleci-ruby-snapshot:latest
+      - image: rubocophq/cimg-ruby-snapshot:latest
     environment:
       <<: *common_env
     steps:
       *ascii_spec_steps
   ruby-head-rubocop:
     docker:
-      - image: rubocophq/circleci-ruby-snapshot:latest
+      - image: rubocophq/cimg-ruby-snapshot:latest
     environment:
       <<: *common_env
     steps:
@@ -164,7 +164,7 @@ jobs:
   # JRuby 9.2
   jruby-9.2-spec:
     docker:
-      - image: circleci/jruby:9.2
+      - image: cimg/jruby:9.2
     environment:
       <<: *common_env
       <<: *jruby_env
@@ -172,7 +172,7 @@ jobs:
       *spec_steps
   jruby-9.2-ascii_spec:
     docker:
-      - image: circleci/jruby:9.2
+      - image: cimg/jruby:9.2
     environment:
       <<: *common_env
       <<: *jruby_env
@@ -180,7 +180,7 @@ jobs:
       *ascii_spec_steps
   jruby-9.2-rubocop:
     docker:
-      - image: circleci/jruby:9.2
+      - image: cimg/jruby:9.2
     environment:
       <<: *common_env
       <<: *jruby_env
@@ -190,7 +190,7 @@ jobs:
   # Job for downloading the Codecov uploader
   cc-setup:
     docker:
-      - image: circleci/ruby
+      - image: cimg/ruby
     environment:
       <<: *common_env
     steps:
@@ -220,7 +220,7 @@ jobs:
   # Job for sending coverage reports to Codecov
   cc-upload-coverage:
     docker:
-      - image: circleci/ruby
+      - image: cimg/ruby
         environment:
           CC_TEST_REPORTER_ID: a11b66bfbb1acdf220d5cb317b2e945a986fd85adebe29a76d411ad6d74ec31f
     environment:
@@ -236,7 +236,7 @@ jobs:
   # Miscellaneous tasks
   documentation-checks:
     docker:
-      - image: circleci/ruby
+      - image: cimg/ruby
     environment:
       <<: *common_env
     steps:
