@@ -198,6 +198,7 @@ jobs:
           name: Download Codecov Uploader
           command: |
             curl https://keybase.io/codecovsecurity/pgp_keys.asc | gpg --no-default-keyring --keyring trustedkeys.gpg --import
+            echo 'done'
             mkdir -p tmp/
             cd ./tmp
             curl -0s https://uploader.codecov.io/latest/linux/codecov
