@@ -190,7 +190,7 @@ jobs:
   # Job for downloading the Codecov uploader
   cc-setup:
     docker:
-      - image: cimg/ruby
+      - image: cimg/ruby:3.0
     environment:
       <<: *common_env
     steps:
@@ -220,7 +220,7 @@ jobs:
   # Job for sending coverage reports to Codecov
   cc-upload-coverage:
     docker:
-      - image: cimg/ruby
+      - image: cimg/ruby:3.0
         environment:
           CC_TEST_REPORTER_ID: a11b66bfbb1acdf220d5cb317b2e945a986fd85adebe29a76d411ad6d74ec31f
     environment:
@@ -236,7 +236,7 @@ jobs:
   # Miscellaneous tasks
   documentation-checks:
     docker:
-      - image: cimg/ruby
+      - image: cimg/ruby:3.0
     environment:
       <<: *common_env
     steps:
