@@ -164,7 +164,7 @@ jobs:
   # JRuby 9.2
   jruby-9.2-spec:
     docker:
-      - image: cimg/jruby:9.2
+      - image: circleci/jruby:9.2
     environment:
       <<: *common_env
       <<: *jruby_env
@@ -172,7 +172,7 @@ jobs:
       *spec_steps
   jruby-9.2-ascii_spec:
     docker:
-      - image: cimg/jruby:9.2
+      - image: circleci/jruby:9.2
     environment:
       <<: *common_env
       <<: *jruby_env
@@ -180,7 +180,7 @@ jobs:
       *ascii_spec_steps
   jruby-9.2-rubocop:
     docker:
-      - image: cimg/jruby:9.2
+      - image: circleci/jruby:9.2
     environment:
       <<: *common_env
       <<: *jruby_env
@@ -201,7 +201,9 @@ jobs:
             echo 'done'
             ls -al
             mkdir -p tmp/
-            cd ./tmp
+            echo 'made dir'
+            cd tmp
+            echo 'cd'
             curl -0s https://uploader.codecov.io/latest/linux/codecov
             curl -0s https://uploader.codecov.io/latest/linux/codecov.SHA256SUM
             curl -0s https://uploader.codecov.io/latest/linux/codecov.SHA256SUM.sig
